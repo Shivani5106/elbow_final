@@ -32,12 +32,33 @@ Plot the WCSS values against the corresponding values of **K** to identify the o
 Execute the program and analyze the elbow point in the graph.
 
 ## PROGRAM:
+```py
+import pandas as pd
+import matplotlib.pyplot as plt
+from sklearn.cluster import KMeans
 
-*(Paste the Python code for the Elbow Method here.)*
+data = pd.read_csv("customers_large_dataset.csv")
+
+X = data[["AnnualIncome", "SpendingScore"]]
+
+wcss = []   # empty list to store values
+
+for k in range(1, 11):   # trying K from 1 to 10
+    kmeans = KMeans(n_clusters=k, random_state=42)
+    kmeans.fit(X)
+    wcss.append(kmeans.inertia_)   # inertia_ gives WCSS
+
+plt.figure()
+plt.plot(range(1, 11), wcss)
+plt.xlabel("Number of Clusters (K)")
+plt.ylabel("WCSS")
+plt.title("Elbow Method")
+plt.show()
+```
 
 ## OUTPUT:
+<img width="577" height="452" alt="image" src="https://github.com/user-attachments/assets/aca85e32-3235-4adc-9519-f5f81c2250a9" />
 
-*(Paste the execution output showing the Elbow Method graph with WCSS vs Number of Clusters.)*
 
 ## RESULT:
 
